@@ -1,7 +1,10 @@
-export const handler = async (event) => {
-  const index = +event.index;
+import { APIGatewayEvent } from "aws-lambda";
+
+export const handler = async (event: APIGatewayEvent) => {
+  console.log(JSON.stringify(event));
+  const index = +event.pathParameters.index;
   const result = getNthPrime(index);
-  return { prime: { index, result: result } };
+  return { statusCode: 200, body: JSON.stringify({ prime: { index, result: result } }) };
 };
 
 function getNthPrime(index: number) {
